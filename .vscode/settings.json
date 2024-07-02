@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "iostream": "cpp",
+        "random": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp",
+        "queue": "cpp",
+        "xtree": "cpp",
+        "xhash": "cpp",
+        "map": "cpp",
+        "utility": "cpp"
+    }
+}
