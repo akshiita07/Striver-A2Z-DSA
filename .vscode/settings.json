@@ -9,6 +9,8 @@
         "xtree": "cpp",
         "xhash": "cpp",
         "map": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "cmath": "cpp",
+        "valarray": "cpp"
     }
 }
