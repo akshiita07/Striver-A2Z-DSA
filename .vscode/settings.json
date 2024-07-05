@@ -12,6 +12,14 @@
         "utility": "cpp",
         "cmath": "cpp",
         "valarray": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "bitset": "cpp",
+        "locale": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "system_error": "cpp",
+        "thread": "cpp",
+        "type_traits": "cpp",
+        "typeindex": "cpp"
     }
 }
