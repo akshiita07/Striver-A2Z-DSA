@@ -20,7 +20,8 @@
         "system_error": "cpp",
         "thread": "cpp",
         "type_traits": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "algorithm": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
