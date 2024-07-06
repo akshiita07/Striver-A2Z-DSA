@@ -21,5 +21,6 @@
         "thread": "cpp",
         "type_traits": "cpp",
         "typeindex": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
