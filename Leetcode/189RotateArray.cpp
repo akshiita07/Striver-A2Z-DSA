@@ -4,10 +4,16 @@ using namespace std;
 void rotate(int nums[], int k, int n)
 {
     // rotation logic-
-    for (int i = 0; i < n; i++)
-    {
-        nums[(i + k) % n] = nums[i];
-    }
+    
+    // if k>n
+    k = k % n;
+
+    // reverse whole from 0 to n
+    reverse(nums, nums + n);
+    // first reverse from 0 to k
+    reverse(nums, nums + k);
+    // reverse from k+1 to n
+    reverse(nums + k, nums + n);
 
     cout << "After rotating array by " << k << " steps to right: \n";
     for (int i = 0; i < n; i++)

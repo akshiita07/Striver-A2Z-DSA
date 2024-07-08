@@ -54,6 +54,28 @@ void rotateArrayOptimal(int arr[], int n, int k)
     }
 }
 
+// IF ASKED TO WRITE REVERSE FNC ALSO:
+void reverse(vector<int>&arr,int start,int end){
+    while(start<=end){
+        int temp=arr[start];
+        arr[start]=arr[end];
+        arr[end]=temp;
+        start++;
+        end--;
+    }
+}
+vector<int> rotateArraywithReverse(vector<int>arr, int k) {
+    int n=arr.size();
+    // reverse array from 0 to k
+    reverse(arr,0,k-1);
+    // reverse array from k to n
+    reverse(arr,k,n-1);
+    // reverse array from 0 to n
+    reverse(arr,0,n-1);
+
+    return arr;
+}
+
 int main()
 {
     int arr[] = {1, 2, 3, 4, 5, 6, 7};
