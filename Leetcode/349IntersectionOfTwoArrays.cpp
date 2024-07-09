@@ -3,6 +3,7 @@ using namespace std;
 
 void intersection(int arr1[], int arr2[], int n, int m)
 {
+    // if these arrays r not sorted then first--> sort(arr.begin(),arr.end())
     vector<int> intersectArr;
     int i = 0;
     int j = 0;
@@ -34,6 +35,9 @@ void intersection(int arr1[], int arr2[], int n, int m)
     {
         cout << it << " ";
     }
+
+    // TIME: O(n+m)     worst case
+    // EXTRA SPACE: O(1)    no extra space reqd
 }
 int main()
 {
