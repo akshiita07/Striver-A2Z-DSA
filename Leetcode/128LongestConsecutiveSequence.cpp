@@ -70,7 +70,7 @@ int longestConsecutive_better(int arr[], int n)
     return maxlength;
 }
 
-// OPTIMAL     TIME-O()      SPACE-O()
+// OPTIMAL     TIME-O(n+2n)      SPACE-O(n)-->set
 int longestConsecutive_optimal(int arr[], int n)
 {
     // add all elem of array into an unordered set
