@@ -69,7 +69,7 @@ void nextPermutation_Brute(int arr[], int n)
             return;
         }
 
-        if (equal(arr, arr + n, ans[i].begin()))        //if elements in arr r equal
+        if (equal(arr, arr + n, ans[i].begin())) // if elements in arr r equal
         {
             found = true;
         }
@@ -91,25 +91,59 @@ void nextPermutation_Stl(vector<int> arr)
 // OPTIMAL- IMPLEMENTATION OF THIS IN BUILT STL
 void nextPermutation_Optimal(int arr[], int n)
 {
-    vector<int> ans;
-
     // WRITE PERMUTATIONS IN SORTED ORDER-
+    int index = -1;
+    // find breakpoint where next no>prev no
+    for (int i = n - 2; i >= 0; i--)
+    {
+        if (arr[i] < arr[i + 1])
+        {
+            cout << "Breakpoint achieved! \n";
+            index = i;
+            break;
+        }
+    }
+    
+    // if no breakpoint is found then it is last permuattion so return reverse order
+    if (index == -1)
+    {
+        reverse(arr, arr + n);
+        return;
+    }
+
+    // find element that is greater than breakpoint arr[i] but least out of all
+    for (int i = n - 1; i > index; i--)
+    {
+        if (arr[i] > arr[index])
+        {
+            cout << "Element larger than breakpoint but smallest is: " << arr[i]<<endl;
+            // swap this with breakpoint
+            swap(arr[i], arr[index]);
+            break;
+        }
+    }
+
+    // sort remaining elements:
+    reverse(arr+index+1,arr+n);       //reverse array from index+1 ie after breakpoint to last element
+
 
     cout << "\nThe next lexicographic permutation is:\n";
-    for (auto it : ans)
+    for (int i = 0; i < n; i++)
     {
-        cout << it << " ";
+        cout << arr[i] << " ";
     }
 }
 
 int main()
 {
-    int arr[] = {1, 2, 3};
+    int arr[] = {2, 1, 5, 4, 3, 0, 0};
     int n = sizeof(arr) / sizeof(arr[0]);
-    nextPermutation_Brute(arr, n);
+    // nextPermutation_Brute(arr, n);
 
     vector<int> vec = {1, 2, 3};
     // nextPermutation_Stl(vec);
+
+    nextPermutation_Optimal(arr, n);
 
     return 0;
 }
