@@ -64,7 +64,7 @@ int lenOfLongSubarr_Brute2(int arr[], int n, int k)
 int lenOfLongSubarr_Better(int arr[], int n, int k)
 {
     // TIME- O(nlogn)-ordered map       O(n*1)-unordered map     EXTRA SPACE-O(n)->hash map to store prefix sum
-    map<int, int> prefixSum;
+    map<int, int> prefixSum;            // prefix sums as keys and their corresponding indices as values
     int length = 0;
     int sum = 0;
     for (int i = 0; i < n; i++)
@@ -96,8 +96,6 @@ int lenOfLongSubarr_Better(int arr[], int n, int k)
 // Optimal- WORKS FOR +,0s              NOT FOR NEGATIVES!!
 int lenOfLongSubarr_Optimal(int arr[], int n, int k)
 {
-    // TIME- O(nlogn)-ordered map       O(n*1)-unordered map     EXTRA SPACE-O(n)->hash map to store prefix sum
-
     int length = 0;
     int i = 0;
     int j = 0;
