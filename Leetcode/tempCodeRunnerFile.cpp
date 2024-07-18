@@ -1,2 +1,5 @@
-1;
-        int count = 1;
+if (count > limit)
+        {
+            ans.push_back(arr[i]);
+            break;
+        }
