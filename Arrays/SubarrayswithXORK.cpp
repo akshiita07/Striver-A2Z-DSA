@@ -46,7 +46,7 @@ int subarraysWithSumK_better(vector<int> arr, int b)
     return count;
 }
 
-// OPTIMAL:     TIME=O()     SPACE=O(1)
+// OPTIMAL:     TIME=O(n*1)-unordered map     SPACE=O(n)->map is used to store xor of earlier elements
 // find x such that  x^k=XR         -> x=XR^k
 // so to keep track of x -> use hash map
 int subarraysWithSumK_optimal(vector<int> arr, int k)
