@@ -1,7 +1,51 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
+// BRUTE FORCE: TIME-O(n*logn)-sort+O(2n)-loop        SPACE-O(n)-ans
 void merge_brute(vector<vector<int>> &intervals)
+{
+    sort(intervals.begin(), intervals.end());
+    vector<vector<int>> ans;
+    int n = intervals.size();
+
+    for (int i = 0; i < n; i++)
+    {
+        int start = intervals[i][0];
+        int end = intervals[i][1];
+
+        // if it is already inside new interval then move on next one
+        if (!ans.empty() && end <= ans.back()[1])
+        {
+            continue;
+        }
+        for (int j = i + 1; j < n; j++)
+        {
+            // check if within interval
+            if (end >= intervals[j][0])
+            {
+                end = max(end, intervals[j][1]);
+            }
+            else
+            {
+                break;
+            }
+        }
+        ans.push_back({start, end});
+    }
+
+    cout << "The overlapping intervals are: \n";
+    for (auto row : ans)
+    {
+        for (auto it : row)
+        {
+            cout << it << " ";
+        }
+        cout << endl;
+    }
+}
+
+// OPTIMAL: TIME-O(nlogn)-sort+O(n)        SPACE-O(n)-to store ans
+void merge_optimal(vector<vector<int>> &intervals)
 {
     sort(intervals.begin(), intervals.end());
     vector<vector<int>> ans;
@@ -43,7 +87,8 @@ int main()
 {
     vector<vector<int>> intervals = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
     // Output: [[1,6],[8,10],[15,18]]
-    merge_brute(intervals);
+    // merge_brute(intervals);
+    merge_optimal(intervals);
 
     return 0;
 }
