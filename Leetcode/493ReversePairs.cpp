@@ -20,7 +20,7 @@ int reversePairs_brute(vector<int> &nums)
     return count;
 }
 
-// OPTIMAL      TIME-O(n^2)     SPACE:O(1)
+// OPTIMAL      TIME-O(2nlogn)     SPACE:O(n)-temp array
 void merge(vector<int> &arr, int low, int mid, int high)
 {
     vector<int> temp;
