@@ -33,7 +33,7 @@ int search(vector<int> &nums, int target)
         else
         {
             //  right half is sorted
-            if( nums[mid]<=target && target<=nums[low] ){//lies on right half
+            if( nums[mid]<=target && target<=nums[high] ){//lies on right half
                 // eliminate left half
                 low=mid+1;
             }else{
@@ -41,7 +41,7 @@ int search(vector<int> &nums, int target)
                 high=mid-1;
             }
         }
-    }
+    }   
     return -1;  //else
 }
 
