@@ -2,6 +2,9 @@
 using namespace std;
 
 // return true if target is in nums, or false if it is not in nums
+
+// TIME : AVERAGE CASE: O(logn)
+//       worst CASE: O(n/2)--> when shrinking all the time eg:target=1 arr={3,3,1,3,3,3,3}
 bool search(vector<int> &nums, int target)
 {
     int n=nums.size();
@@ -12,7 +15,7 @@ bool search(vector<int> &nums, int target)
         int mid=(low+high)/2;
 
         // due to duplicates-->trim down 
-        if(nums[mid]==nums[low]==nums[high]){
+        if(nums[low]==nums[mid] && nums[mid]==nums[high]){
             // shink search space
             // eg:{3,1,2,3,3,3}
             low++;
