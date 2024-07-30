@@ -1,5 +1,1 @@
-if (count > limit)
-        {
-            ans.push_back(arr[i]);
-            break;
-        }
+ 10, 11, 11
