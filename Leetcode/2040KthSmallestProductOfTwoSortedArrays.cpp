@@ -1,7 +1,8 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-long long kthSmallestProduct(vector<int> &nums1, vector<int> &nums2, long long k)
+// BRUTE FORCE: 
+long long brute_force(vector<int> &nums1, vector<int> &nums2, long long k)
 {
     long long ans;
     int n = nums1.size();
@@ -20,17 +21,25 @@ long long kthSmallestProduct(vector<int> &nums1, vector<int> &nums2, long long k
     // sort this array
     sort(products.begin(), products.end());
 
-    ans=products[k-1];
+    ans = products[k - 1];
 
     return ans;
 }
 
+long long kthSmallestProduct(vector<int> &nums1, vector<int> &nums2, long long k)
+{
+    long long ans;
+    int n = nums1.size();
+    int m = nums2.size();
+    // NOT COMPLETED!!  
+    return ans;
+}
 int main()
 {
     vector<int> nums1 = {-4, -2, 0, 3};
     vector<int> nums2 = {2, 4};
     int k = 6;
-    cout << "\nThe " << k << "th smallest product of nums1*nums2 is: " << kthSmallestProduct(nums1, nums2, k);
+    cout << "\nBRUTE FORCE: The " << k << "th smallest product of nums1*nums2 is: " << kthSmallestProduct(nums1, nums2, k);
 
     return 0;
 }
