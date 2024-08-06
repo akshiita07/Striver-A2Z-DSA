@@ -50,7 +50,7 @@ bool better(vector<vector<int>> &matrix, int target)
     return false;
 }
 
-// BINARY SEARCH WITHIN LOOP: O(m)->loop thru rows+O(log2n)->for row binary search ie approx O(n)
+// BINARY SEARCH WITHIN LOOP: O(m)->loop thru rows*O(log2n)->for row binary search
 bool searchMatrix1(vector<vector<int>> &matrix, int target)
 {
     int m = matrix.size();
