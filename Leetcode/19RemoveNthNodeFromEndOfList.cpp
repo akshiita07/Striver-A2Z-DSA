@@ -45,6 +45,7 @@ void traverse(Node *head)
 
 int findLen(Node *head)
 {
+    // TIME: O(n)
     Node *temp = head;
     int count = 0;
     while (temp != nullptr)
@@ -54,6 +55,7 @@ int findLen(Node *head)
     }
     return count;
 }
+// TOTAL TIME:O(n+n)=O(2n)
 Node *removeNthFromEnd(Node *head, int n)
 {
     // if no element or only single element
@@ -65,7 +67,7 @@ Node *removeNthFromEnd(Node *head, int n)
     int len = findLen(head);
     int key = len - n;
     // delete node after key:
-    if (key == 0)       //or even if n==len ie delete first element
+    if (key == 0) // or even if n==len ie delete first element
     {
         // delete head node
         Node *ptr = head;
@@ -75,6 +77,7 @@ Node *removeNthFromEnd(Node *head, int n)
         return head;
     }
     else
+    // TIME: O(LENGTH-N)
     {
         // delete in between node
         int c = 0;
@@ -84,16 +87,65 @@ Node *removeNthFromEnd(Node *head, int n)
             c++;
             if (c == key)
             {
-                Node* elem=temp->next;
+                Node *elem = temp->next;
                 // delete the node after it
                 temp->next = elem->next;
                 delete elem;
                 return head;
             }
-            temp=temp->next;
+            temp = temp->next;
         }
     }
     return NULL;
+}
+
+// OPTIMISE:
+// take fast pointer & move it given n steps
+// take slow pointer & move both fast & slow simultanoulsy 1 by 1
+// until fast reaches last node then stop
+// slow will point at prev node
+
+// TOTAL TIME:O(n) ie single iteration
+Node *optimal(Node *head, int n)
+{
+    // if no element or only single element
+    if (head == nullptr || head->next == nullptr)
+    {
+        // single elm would be deleted
+        return nullptr;
+    }
+
+    Node *fast = head;
+
+    for (int i = 0; i < n; i++)
+    {
+        fast = fast->next;
+    }
+
+    if(fast==nullptr){
+        // ie it moved upto length of LL
+        // ie delete head node
+        Node *ptr = head;
+        head = head->next;
+        ptr->next = nullptr;
+        delete ptr;
+        return head;
+    }
+
+    Node *slow = head;
+    // until fast reaches LAST node
+    while (fast->next != nullptr)
+    {
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    // now slow points to prev pos
+    Node *elementToDelete = slow->next;
+    // delete the node after it
+    slow->next = elementToDelete->next;
+    delete elementToDelete;
+    return head;
 }
 
 int main()
@@ -105,7 +157,8 @@ int main()
     traverse(node);
 
     int key = 2;
-    Node *newNode = removeNthFromEnd(node, key);
+    // Node *newNode = removeNthFromEnd(node, key);
+    Node *newNode = optimal(node, key);
     cout << "\nTraversing LL after removing " << key << " node from end of LL: ";
     traverse(newNode);
 
