@@ -42,39 +42,121 @@ void traverse(Node *head)
         temp = temp->next;
     }
 }
-
-Node* revereLL(Node* head){
-    Node* temp=head;
-    Node* prev=nullptr;
-    while(temp!=nullptr){
-        Node* forward=temp->next;
-        temp->next=prev;
-        prev=temp;
-        temp=forward;
-    }
-    return prev;
-}
-int *getIntersectionNode(Node *headA, Node *headB)
+int countLen(Node *head)
 {
-    Node* reversedA=revereLL(headA);
-    Node* ptrA=reversedA;
-    Node* reversedB=revereLL(headB);
-    Node* ptrB=reversedB;
+    int count = 0;
+    Node *temp = head;
+    while (temp != nullptr)
+    {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
 
-    int intersectionNode=NULL;
+// TIME: O(n1*1)+O(n2*1)
+// SPACE: O(n1)->put first list nodes in map
+Node *using_hashing(Node *headA, Node *headB)
+{
+    // stores node & from which list it is
+    unordered_map<Node *, int> hashMap; // TIME: O(1)->as unordered
+    Node *temp1 = headA;
+    // TIME: O(n1)
+    while (temp1 != nullptr)
+    {
+        hashMap[temp1] = 1;
+        temp1 = temp1->next;
+    }
+    Node *temp2 = headB;
+    // TIME: O(n2)
+    while (temp2 != nullptr)
+    {
+        // if we found exact same node in map then that is intersection point
+        if (hashMap.find(temp2) != hashMap.end())
+        {
+            // ie found exact same node
+            return temp2;
+        }
+        temp2 = temp2->next;
+    }
+    return NULL; // if no intersection point exists
+}
 
-    while(ptrA!=nullptr && ptrB!=nullptr){
-        // check until where same
-        if(ptrA->data==ptrB->data){
-            // continue iterating
-            ptrA=ptrA->next;
-            ptrB=ptrB->next;
-        }else{
-            // the point where it changes is the node
+// WITHOUT EXTRA SPACE: o(1) space
+// TOTAL TIME: O(n1)+O(n2)+O(n1-n2)+O(n2)=O((2n1)+n2)
+Node *getIntersectionNode(Node *headA, Node *headB)
+{
+    Node *t1 = headA;
+    int len1 = countLen(headA); // TIME: O(n1)
+    Node *t2 = headB;
+    int len2 = countLen(headB); // TIME: O(n2)
+
+    // check which one is longer LL
+    if (len1 > len2) // TIME: O(n1-n2)
+    {
+        // move list1
+        int d = len1 - len2;
+        for (int i = 1; i <= d; i++)
+        {
+            t1 = t1->next;
         }
     }
-    return intersectionNode;
+    else if (len2 > len1) // TIME: O(n2-n1)
+    {
+        // move list2
+        int d = len2 - len1;
+        for (int i = 1; i <= d; i++)
+        {
+            t2 = t2->next;
+        }
+    }
+    // now start comparing:
+    // TIME: O(min(n1,n2))  ...shorter length ko traverse kiya
+    while (t1 != nullptr && t2 != nullptr)
+    {
+        if (t1 == t2)
+        {
+            return t1;
+        }
+        t1 = t1->next;
+        t2 = t2->next;
+    }
+    return NULL;
+}
 
+// OPTIMAL APPROACH- REDUCE TIME
+// TIME: O(n1+n2)
+Node *optimal_approach(Node *headA, Node *headB)
+{
+
+    // if LL is empty?
+    if (headA == nullptr || headB == nullptr)
+    {
+        // no collision possible
+        return NULL;
+    }
+    Node *t1 = headA;
+    Node *t2 = headB;
+
+    while (t1!=t2)
+    {
+        t1 = t1->next;
+        t2 = t2->next;
+        // check for intersection:
+        if(t1==t2){
+            return t1;
+        }
+        // WHENEVER ONE OF THEM REACHES LAST NODE THEN NEXT SEND THEM TO OTHER HEAD
+        if (t1 == nullptr)
+        {
+            t1 = headB;
+        }
+        if (t2 == nullptr)
+        {
+            t2 = headA;
+        }
+    }
+    return t1;
 }
 
 int main()
@@ -91,7 +173,13 @@ int main()
     cout << "\nTraversing LL2: ";
     traverse(node2);
 
-    cout << "\nIntersected at node whose value is: " << getIntersectionNode(node1, node2);
+    cout << "\nrunning fnc: ";
+    // Node *ans = using_hashing(node1, node2);
+    // Node *ans = getIntersectionNode(node1, node2);
+    Node *ans = optimal_approach(node1, node2);
+
+    cout << "\nTraversing from intersection point: ";
+    traverse(ans);
 
     return 0;
 }
