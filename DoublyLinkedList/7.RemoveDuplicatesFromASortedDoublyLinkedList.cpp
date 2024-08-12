@@ -91,7 +91,7 @@ Node *brute_force(Node *head)
 Node *removeDuplicates(Node *head)
 {
     Node *temp = head;
-    while (temp->next != nullptr)
+    while (temp!=nullptr && temp->next!=nullptr)
     {
         Node *newNode = temp->next;
         while (newNode != nullptr && temp->data == newNode->data)
