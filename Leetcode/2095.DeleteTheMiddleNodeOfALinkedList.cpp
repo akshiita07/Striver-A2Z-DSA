@@ -72,7 +72,11 @@ Node *deleteElement(Node *head, Node *nodeToDelete)
     return head;
 }
 Node *deleteMiddle(Node *head)
-{
+{// if single element in LL or empty LL
+    if (head == NULL || head->next == nullptr)
+    {
+        return NULL;
+    }
     Node *slow = head;
     Node *fast = head;
     Node *newLL = NULL;
@@ -87,6 +91,32 @@ Node *deleteMiddle(Node *head)
     return newLL;
 }
 
+// reach slow 1 step before middle node so skip 1 step of slow
+// TIME: O(n/2)
+// SPACE: O(1)
+Node *optimalApproach(Node *head)
+{// if single element in LL or empty LL
+    if (head == NULL || head->next == nullptr)
+    {
+        return NULL;
+    }
+    Node *slow = head;
+    Node *fast = head;
+    fast = fast->next->next;
+    // for odd length: fast->next=nullptr
+    // for even length: fast-=nullptr
+    while (fast != nullptr && fast->next != nullptr)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+     // middle element is slow->next;
+    Node* middleEle=slow->next;
+    slow->next=middleEle->next;
+    delete middleEle;
+    return head;
+}
+
 int main()
 {
     // odd length list
@@ -95,7 +125,8 @@ int main()
     Node *node1 = convertArrToLL(arr1, n1);
     cout << "\nTraversing LL1: ";
     traverse(node1);
-    deleteMiddle(node1);
+    // deleteMiddle(node1);
+    optimalApproach(node1);
     cout << "\nAfter deleting middle element of LL1: ";
     traverse(node1);
 
@@ -105,7 +136,8 @@ int main()
     Node *node2 = convertArrToLL(arr2, n2);
     cout << "\nTraversing LL2: ";
     traverse(node2);
-    deleteMiddle(node2);
+    // deleteMiddle(node2);
+    optimalApproach(node2);
     cout << "\nAfter deleting middle element of LL2: ";
     traverse(node2);
 
