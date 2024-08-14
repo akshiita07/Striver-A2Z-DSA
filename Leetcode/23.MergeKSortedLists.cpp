@@ -150,12 +150,16 @@ Node *optimalApproach(vector<Node *> &lists)
         return NULL;
     }
     // using priority queue
-    priority_queue<pair<int, Node *>,vector<pair<int, Node *>>, greater<pair<int, Node *>>> pq;//BY DEF IT IS MAX HEAP SO WE HAVE TO ADD GREATER HERE
+    priority_queue<pair<int, Node *>, vector<pair<int, Node *>>, greater<pair<int, Node *>>> pq; // BY DEF IT IS MAX HEAP SO WE HAVE TO ADD GREATER HERE
     // initially pq consists of all head nodes
     for (int i = 0; i < n; i++)
     {
         // push heads only
-        pq.push({lists[i]->data, lists[i]});
+        // check if list is empty before inserting
+        if (lists[i])
+        {
+            pq.push({lists[i]->data, lists[i]});
+        }
     }
 
     Node *dummy = new Node(-1);
@@ -165,7 +169,7 @@ Node *optimalApproach(vector<Node *> &lists)
     while (!pq.empty())
     {
         auto p = pq.top(); // gives MIN element
-        pq.pop(); // delete it from pq
+        pq.pop();          // delete it from pq
 
         // now get next from pq
         if (p.second->next != nullptr)
@@ -173,9 +177,9 @@ Node *optimalApproach(vector<Node *> &lists)
             pq.push({p.second->next->data, p.second->next});
         }
         ptr->next = p.second;
-        ptr=ptr->next;
+        ptr = ptr->next;
     }
-    Node* head=dummy->next;
+    Node *head = dummy->next;
     return head;
 }
 
