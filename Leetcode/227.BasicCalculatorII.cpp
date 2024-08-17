@@ -29,22 +29,13 @@ string infixToPostfix(string exp)
     {
         if ((exp[i] >= 'A' && exp[i] <= 'Z') || (exp[i] >= 'a' && exp[i] <= 'z') || (exp[i] >= '0' && exp[i] <= '9'))
         {
-            // for multidigit numbers:
-            while (i < exp.length() && isdigit(exp[i]))
-            {
-                // operand:add in postfix
-                postfix += exp[i];
-                i++;
-            }
-            // after addition of number add a space
-            postfix += ' ';
-            i--;
+            // operand:add in postfix
+            postfix += exp[i];
         }
-        else if (exp[i] == ' ')
-        {
+        else if (exp[i] == ' ') {
             // ignore spaces
-            continue;
-        }
+                continue;
+            }
         else if (exp[i] == '(')
         {
             st.push(exp[i]);
@@ -70,7 +61,6 @@ string infixToPostfix(string exp)
                 char el = st.top();
                 st.pop();
                 postfix += el;
-                postfix += ' ';
             }
             // push
             st.push(exp[i]);
@@ -82,9 +72,8 @@ string infixToPostfix(string exp)
         char el = st.top();
         st.pop();
         postfix += el;
-        postfix += ' ';
     }
-    cout << "\nThe postfix is: " << postfix;
+    cout<<"\nThe postfix is: "<<postfix;
     return postfix;
 }
 
@@ -116,22 +105,10 @@ int evalPostfix(string postfix)
                 st.push(elem1 / elem2);
             }
         }
-        else if (postfix[i] == ' ')
-        {
-            // ignore spaces
-            continue;
-        }
         else
         {
-            // operand::
-            int num=0;
-            while(i<postfix.length() && isdigit(postfix[i])){
-                num=num*10+(postfix[i]-'0');
-                i++;
-            }
             // stoi converts string to int
-            st.push(num);
-            i--;
+            st.push(postfix[i] - '0');
         }
     }
     return st.top();
@@ -140,16 +117,12 @@ int evalPostfix(string postfix)
 int calculate(string s)
 {
     // check if s does NOT contains any operator then return s itself
-    bool isOnlyNumber = true;
-    for (int i = 0; i < s.length(); i++)
-    {
-        if (s[i] != '+' && s[i] != '-' && s[i] != '*' && s[i] != '/')
-        {
-            isOnlyNumber = true;
-        }
-        else
-        {
-            isOnlyNumber = false;
+    bool isOnlyNumber=true;
+    for(int i=0;i<s.length();i++){
+        if(s[i]!='+' && s[i]!='-' && s[i]!='*' && s[i]!='/'){
+            isOnlyNumber=true;
+        }else{
+            isOnlyNumber=false;
             break;
         }
     }
@@ -160,7 +133,7 @@ int calculate(string s)
         {
             if (s[i] == '(' || s[i] == ')')
             {
-                s.erase(s.begin() + i);
+                s.erase(s.begin()+i);
             }
         }
         return stoi(s);
@@ -174,16 +147,11 @@ int calculate(string s)
 
 int main()
 {
-    string s1 = "(1+(4+5+2)-3)+(6+8)"; // single digit numbers
-    cout << "\nAnswer1= " << calculate(s1);
-    string s2 = "1 + 1"; // single digit numbers
-    cout << "\nAnswer2= " << calculate(s2);
-    string s3 = "2147483647"; // only number
-    cout << "\nAnswer3= " << calculate(s3);
-    string s4 = "(1)"; // multi digit number
-    cout << "\nAnswer4= " << calculate(s4);
-    string s5 = "14 + 2"; // multi digit number
-    cout << "\nAnswer5= " << calculate(s5);
+    // string s = "(1+(4+5+2)-3)+(6+8)";
+    // string s = "1 + 1";
+    // string s = "42";
+    string s = "14+2";
+    cout << "\nAnswer= " << calculate(s);
 
     return 0;
 }
