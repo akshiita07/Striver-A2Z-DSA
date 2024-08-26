@@ -1,8 +1,11 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-int brute_force(vector<int> &nums)
+// TIME: O(n*1)+O(n*1)==O(2n) where unordered map takes O(1)
+// SPACE: O(n)->for map + O(2)->to return vector as ans
+void brute_force(vector<int> &nums)
 {
+    vector<int> ans;
     int n = nums.size();
     unordered_map<int, int> hashMap(0); // stores number and its count
     for (int i = 0; i < n; i++)
@@ -13,32 +16,65 @@ int brute_force(vector<int> &nums)
     {
         if (it.second == 1)
         {
-            return it.first;
+            ans.push_back(it.first);
         }
+    }
+    // return ans;
+    cout << "\nPrinting elements that appear exactly once: ";
+    for (auto it : ans)
+    {
+        cout << it << " ";
     }
 }
 
-vector<int> better_1(vector<int>& nums) {
-        
-    }
+void singleNumber(vector<int> &nums)
+{
+    vector<int> ans;
+    int n = nums.size();
 
-vector<int> better_2(vector<int>& nums) {
-        
+    long xorAns = 0;
+    // find xor of all elements of array
+    for (int i = 0; i < n; i++)
+    {
+        xorAns = xorAns^nums[i];
     }
-
-vector<int> singleNumber(vector<int>& nums) {
-        
+    // take right bit
+    int right = (xorAns&(xorAns-1)) ^ xorAns;
+    // take 2 buckets
+    int b1 = 0;
+    int b2 = 0;
+    // loop
+    for (int i = 0; i < n; i++)
+    {
+        if (nums[i] & right)
+        {
+            b1 = b1 ^ nums[i];
+        }
+        else
+        {
+            b2 = b2 ^ nums[i];
+        }
     }
+    ans.push_back(b1);
+    ans.push_back(b2);
+    // return ans;
+    cout << "\nPrinting elements that appear exactly once: ";
+    for (auto it : ans)
+    {
+        cout << it << " ";
+    }
+}
 
 int main()
 {
-    // every element appears 3 times except 1
-    // return element that appears only once!!
-    vector<int> nums = {0, 1, 0, 1, 0, 1, 99};
-    cout << "\nBRUTE FORCE: The no that appears exactly once is: " << brute_force(nums);
-    cout << "\nBETTER 1: The no that appears exactly once is: " << better_1(nums);
-    cout << "\nBETTER 2: The no that appears exactly once is: " << better_2(nums);
-    cout << "\nThe no that appears exactly once is: " << singleNumber(nums);
+    // every element appears 2 times except 2 elements that appear only 1
+    // return these 2 elements that appears only once!!
+    vector<int> nums = {1, 2, 1, 3, 2, 5};
+    cout << "\nBRUTE FORCE: The no that appears exactly once are: ";
+    brute_force(nums);
+
+    cout << "\nThe no that appears exactly once are: ";
+    singleNumber(nums);
 
     return 0;
 }
