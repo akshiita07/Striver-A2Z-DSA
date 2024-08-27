@@ -36,7 +36,7 @@ vector<string> readBinaryWatch(int turnedOn)
                 }
                 else
                 {
-                    mins = to_string(i);
+                    mins = to_string(j);
                 }
                 ans.push_back(hours + ':' + mins);
             }
