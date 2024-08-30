@@ -1,5 +1,2 @@
-f(isPrime(i)==true){
-            c++;
-        }
-    }
-    return c;
+
+    TreeNode* temp=root->left;
