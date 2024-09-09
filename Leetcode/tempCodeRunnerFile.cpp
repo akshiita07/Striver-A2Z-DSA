@@ -1,2 +1,1 @@
-
-    TreeNode* temp=root->left;
+Node
