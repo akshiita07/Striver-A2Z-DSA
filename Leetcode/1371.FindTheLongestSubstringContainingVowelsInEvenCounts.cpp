@@ -14,6 +14,8 @@ bool checkEvenCount(vector<int> &vowels)
     return true;
 }
 
+// TIME: O(n^2)->2 FOR LOOPS FOR SLIDING WINDOW
+// SPACE: O()
 int findTheLongestSubstring(string s)
 {
     //  return the size of the longest substring containing each vowel an even number of times ie 'a', 'e', 'i', 'o', and 'u' must appear an even number of times.
