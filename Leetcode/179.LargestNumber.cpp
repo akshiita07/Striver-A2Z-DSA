@@ -1,6 +1,7 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
+// to use this as memeber function add static bool
 bool myCustomComparator(string &a, string &b)
 {
     // concate any 2 string numbers at a time & check whose int value is greater
