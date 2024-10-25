@@ -10,7 +10,10 @@ vector<string> removeSubfolders(vector<string> &folder)
     // Iterate through each folder
     for (auto it:folder)
     {
-        // If the result is empty or the current folder does not start with the last folder in result + "/"
+        // 3 conditions:
+        // 1. If ans array is empty, we add the current folder it to array because there is no previous folder to compare it against
+        // 2. it.compare(0, ans.back().size(), ans.back()) checks if the current folder it starts with the last folder in ans array
+        // 3. check if the character immediately following the last folder in result within f is a '/'
         if (ans.empty() || it.compare(0, ans.back().size(), ans.back()) != 0 || it[ans.back().size()] != '/')
         {
             ans.push_back(it);
