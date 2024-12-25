@@ -74,17 +74,9 @@ int minimumDiameterAfterMerge(vector<vector<int>> &edges1, vector<vector<int>> &
     }
 
     // find max of these 3: d1, d2, (d1+1)/2+(d2+1)/2+1
-    int ans = d1;
-    if (d1 < d2)
-    {
-        ans = d2;
-    }
-    if (d2 < (d1 + 1) / 2 + (d2 + 1) / 2 + 1)
-    {
-        ans = (d1 + 1) / 2 + (d2 + 1) / 2 + 1;
-    }
+        int mergedDiameter = (d1 + 1) / 2 + (d2 + 1) / 2 + 1;
 
-    return ans;
+        return max({d1, d2, mergedDiameter});
 }
 
 int main()
