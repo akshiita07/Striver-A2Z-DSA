@@ -1,1 +1,1 @@
-Node
+waterTrapped = 0
