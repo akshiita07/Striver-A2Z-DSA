@@ -1,7 +1,7 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-const int MOD = 1e9 + 9; // modulo 109 + 7
+const int MOD = 1e9 + 7; // modulo 109 + 7
 int numOfSubarrays(vector<int> &arr)
 {
     // return the number of subarrays with an odd sum
