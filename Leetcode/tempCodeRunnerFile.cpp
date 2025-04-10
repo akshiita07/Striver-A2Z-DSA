@@ -1,67 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-long long countOfSubstrings(string word, int k)
+long long countTill(long long n, string &s, int limit)
 {
-    // lambda fnc:
-    auto countSubstrings = [&](int k) -> long long
-    {
-        // Return total number of substrings of word that contain every vowel ('a', 'e', 'i', 'o', and 'u') at least once & exactly k consonants.
-        int n = word.size();
-        long long ans = 0;
-        // create set of vowels:
-        unordered_set<char> vowelsSet = {'a', 'e', 'i', 'o', 'u'};
-        // create map for counting vowels:
-        unordered_map<char, int> hashMap;
-        long long consonants = 0;
-        // take sliding windoe from l to r:
-        int l = 0;
-        for (int r = 0; r < n; r++)
-        {
-            char currentChar = word[r];
-            // add character in window if vowel:
-            if (vowelsSet.find(currentChar) != vowelsSet.end())
-            {
-                hashMap[word[r]]++;
-            }
-            else
-            {
-                consonants++;
-            }
+    // count all powerful integers <= n
+    // generate all possible numbers like s, _s, _ _s and so on
+    // check if it is less than or equal to n and each digit is atMost limit
 
-            // chrink window if no of consonants > k:
-            while (consonants > k)
-            {
-                char leftMostChar = word[l];
-                if (vowelsSet.find(word[l]) != vowelsSet.end())
-                {
-                    hashMap[leftMostChar]--;
-                    if (hashMap[leftMostChar] == 0)
-                    {
-                        hashMap.erase(leftMostChar);
-                    }
-                }
-                else
-                {
-                    consonants--;
-                }
-                l++; // shrink window
-            }
-            // if all vowels & exactly k consonants are present in window:
-            if (hashMap.size() == 5 && consonants == k)
-            {
-                ans += l;
-            }
+    long long count = 0;
+    int length = s.length();
+    for (int i = 0; i < length; i++)
+    {
+        // generate number like s, _s, _ _s and so on
+        string temp = s.substr(i);
+        long long num = stoll(temp);    
+        if (num <= n)
+        {
+            count++;
         }
-    };
-    return countSubstrings(k) - countSubstrings(k + 1);
+    }
+    return count;
+}
+
+long long numberOfPowerfulInt(long long start, long long finish, int limit, string s)
+{
+    // integer x is powerful if it ends with s & each digit of x is atMost limit(limit or less)
+    // return total no of powerful integrs in range [start, finish]
+
+    // generate numbers like s,_s,_ _s and so on
+    return (countTill(finish, s, limit) - countTill(start - 1, s, limit));
 }
 
 int main()
 {
-    string word = "ieaouqqieaouqq";
-    int k = 1;
-    cout << "\n total number of substrings= " << countOfSubstrings(word, k);
+    long long start = 1;
+    long long finish = 6000;
+    int limit = 4;
+    string s = "124";
+    cout << "\nNumber of powerful integers: " << numberOfPowerfulInt(start, finish, limit, s);
 
     return 0;
 }
