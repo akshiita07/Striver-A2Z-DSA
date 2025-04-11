@@ -1,73 +1,60 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-// check if all digits in a string are <= limit
-bool allDigitsWithinLimit(string &numStr, int limit)
-{
-    for (char c : numStr)
-    {
-        if ((c - '0') > limit)
-        {
-            return false;
+class Solution {
+public:
+    string targetSuffix;
+    int limitDigit;
+    string t;
+    long long dp[20];
+
+    // count numbers ending with `targetSuffix`, digits ≤ limitDigit,and ≤
+    // number `t`
+    long long dfs(int pos, bool tight) {
+        if (t.size() < targetSuffix.size())
+            return 0;
+
+        if (t.size() - pos == targetSuffix.size()) {
+            string suffixCandidate = t.substr(pos);
+            return (tight ? suffixCandidate >= targetSuffix : 1);
         }
-    }
-    return true;
-}
 
-// Compare two number strings
-bool isLessThanOrEqual(const string &a, const string &b)
-{
-    if (a.length() != b.length())
-    {
-        return a.length() < b.length();
-    }
-    return a <= b;
-}
+        if (!tight && dp[pos] != -1)
+            return dp[pos];
 
-long long countTill(long long n, const string &s, int limit)
-{
-    long long count = 0;
-    string nStr = to_string(n);
+        long long ans = 0;
+        int maxDigit = tight ? t[pos] - '0' : 9;
+        maxDigit = min(maxDigit, limitDigit);
 
-    queue<string> q;
-    if (s[0] != '0')
-    {
-        q.push(s);
-    }
-
-    while (!q.empty())
-    {
-        string curr = q.front();
-        q.pop();
-
-        if (!isLessThanOrEqual(curr, nStr))
-            continue;
-
-        if (allDigitsWithinLimit(curr, limit))
-        {
-            count++;
-            for (int d = 0; d <= limit; d++)
-            {
-                string newNum = to_string(d) + curr;
-                if (newNum[0] != '0')
-                {
-                    q.push(newNum);
-                }
-            }
+        for (int d = 0; d <= maxDigit; d++) {
+            bool newTight = tight && (d == t[pos] - '0');
+            ans += dfs(pos + 1, newTight);
         }
+
+        if (!tight) {
+            dp[pos] = ans;
+        }
+        return ans;
     }
 
-    return count;
-}
+    long long numberOfPowerfulInt(long long start, long long finish, int limit,
+                                  string s) {
+        targetSuffix = s;
+        limitDigit = limit;
 
-long long numberOfPowerfulInt(long long start, long long finish, int limit, string s)
-{
-    // integer x is powerful if it ends with s & each digit of x is atMost limit(limit or less)
-    // return total no of powerful integrs in range [start, finish]
+        // Count powerful numbers ≤ finish
+        t = to_string(finish);
+        memset(dp, -1, sizeof(dp));
+        long long countFinish = dfs(0, true);
 
-    // generate numbers like s,_s,_ _s and so on
-    return (countTill(finish, s, limit) - countTill(start - 1, s, limit));
-}
+        // Count powerful numbers ≤ start - 1
+        t = to_string(start - 1);
+        memset(dp, -1, sizeof(dp));
+        long long countStartMinusOne = dfs(0, true);
+
+        return countFinish - countStartMinusOne;
+    }
+};
 
 int main()
 {
