@@ -107,7 +107,7 @@ vector<int> better_approach(vector<int> &digits)
     return vector<int>(ans.begin(), ans.end());
 }
 
-// Optimized approach: O(n^3)
+// Optimized approach: O(998-100/2)=O(898/2)=O(449)
 vector<int> findEvenNumbers(vector<int> &digits)
 {
     // from all given digits, form 3 digit unqiue even numbers (with NO leading zeros)
