@@ -86,7 +86,7 @@ void sortColors_better(int arr[], int n)
     }
 }
 
-// OPTIMAL APPROACH- DUTCH NATIONAL FLAG ALGO        TIME-O()       SPACE-O()
+// OPTIMAL APPROACH- DUTCH NATIONAL FLAG ALGO        TIME-O(n)       SPACE-O(1)
 void sortColors_optimal(int arr[], int n)
 {
     // 3 RULES- 0 TO LOW-1-->0s             LOW TO MID-1-->1s           MID TO HIGH-->lunsorted     HIGH+1-n-1-->2s
