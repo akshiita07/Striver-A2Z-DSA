@@ -119,6 +119,7 @@ void setZeroes_better(vector<vector<int>> &matrix)
 }
 
 // OPTIMAL: TIME:O(m*n+m*n)=O(2mn)       SPACE:0(1)      row/colm check WITHIN D MATRIX
+// Modifies matrix in-place
 void setZeroes_optimal(vector<vector<int>> &matrix)
 {
     int m = matrix.size(); // rows
@@ -161,25 +162,30 @@ void setZeroes_optimal(vector<vector<int>> &matrix)
     {
         for (int j = 1; j < n; j++)
         {
-            if (matrix[i][j] != 0)      //do only for non zero elements
+            if (matrix[i][j] != 0) // do only for non zero elements
             {
                 // check if row/col is 0
-                if(matrix[i][0]==0 || matrix[0][j]==0){
-                    matrix[i][j]=0;
+                if (matrix[i][0] == 0 || matrix[0][j] == 0)
+                {
+                    matrix[i][j] = 0;
                 }
             }
         }
     }
     // for column first
-    if(matrix[0][0]==0){
-        for(int j=0;j<n;j++){
-            matrix[0][j]=0;
+    if (matrix[0][0] == 0)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            matrix[0][j] = 0;
         }
     }
     // for row
-    if(col0==0){
-        for(int i=0;i<m;i++){
-            matrix[i][0]=0;
+    if (col0 == 0)
+    {
+        for (int i = 0; i < m; i++)
+        {
+            matrix[i][0] = 0;
         }
     }
 
