@@ -7,17 +7,15 @@ string answerString(string word, int numFriends)
     // split "word" into numFriends parts st prev round did not have same split
     // Find the lexicographically largest string
     int n = word.size();
-    int minLen = n - numFriends + 1;
-    string ans = "";
-    for (int i = 0; i <= n - minLen; i++)
+    if (numFriends == 1)
     {
-        // try all substrings of this length
-        string curr = word.substr(i, minLen);
-        if (curr > ans)
-        {
-            // take lexicographically largest string:
-            ans = curr;
-        }
+        // ans is complete word as split into 1 friend
+        return word;
+    }
+    string ans = "";
+    for (int i = 0; i < n; i++)
+    {
+        ans = max(ans, word.substr(i, min(n - i, n - numFriends + 1)));
     }
     return ans;
 }
