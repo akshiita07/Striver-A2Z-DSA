@@ -1,9 +1,13 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
+int count(int a, int b, int change)
+{
+    return abs(a - b) + change * 2;
+}
+
 int maxDistance(string s, int k)
 {
-
     // N,S,E,W directions given in string s
     // Find maximum Manhattan distance from the origin (0,0) that can be achieved at any time while performing the movements in order
     // Manhattan Distance between two cells (xi, yi) and (xj, yj) is |xi - xj| + |yi - yj|
@@ -13,48 +17,34 @@ int maxDistance(string s, int k)
     // for West: (x, y) -> (x-1, y)
     int n = s.length();
     int ans = INT_MIN;
-    int x = 0;
-    int y = 0;
-    // create a direction map:
-    map<char, pair<int, int>> direction = {
-        {'N', {0, 1}},
-        {'S', {0, -1}},
-        {'E', {1, 0}},
-        {'W', {-1, 0}},
-    };
+    int north = 0;
+    int south = 0;
+    int east = 0;
+    int west = 0;
 
     for (int i = 0; i < n; i++)
     {
-        int bestDist = -1;
-        char bestMove = s[i];
-        // try directions:
-        for (auto it : {'N', 'S', 'E', 'W'})
+        if (s[i] == 'N')
         {
-            int new_x = x + direction[it].first;
-            int new_y = y + direction[it].second;
-            // Calculate Manhattan distance from origin
-            int manh_dist = abs(new_x) + abs(new_y);
-            if (it == s[i])
-            {
-                if (manh_dist > bestDist)
-                {
-                    bestDist = manh_dist;
-                    bestMove = it;
-                }
-            }
-            else if (k > 0 && manh_dist > bestDist)
-            {
-                bestDist = manh_dist;
-                bestMove = it;
-            }
+            north++;
         }
-        x += direction[bestMove].first;
-        y += direction[bestMove].second;
-        if (bestMove != s[i])
+        else if (s[i] == 'S')
         {
-            k--;
+            south++;
         }
-        ans = max(ans, abs(x) + abs(y));
+        else if (s[i] == 'E')
+        {
+            east++;
+        }
+        else if (s[i] == 'W')
+        {
+            west++;
+        }
+        int change_vertical = min(min(north, south), k);
+        int change_horizontal = min(min(east, west), k - change_vertical);
+        int vert = count(north, south, change_vertical);
+        int horiz = count(east, west, change_horizontal);
+        ans = max(ans, vert + horiz);
     }
     return ans;
 }
