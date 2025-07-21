@@ -10,7 +10,7 @@ string makeFancyString(string s)
     for (int i = 0; i < n; i++)
     {
         // check if it is not duplicate:
-        // check if more than 2 characters are written first
+        // check if more than 2 characters are available first
         // check 1st prev character
         // now check second prev character:
         if (ans.size() > 2 && ans.back() == s[i] && ans[ans.size() - 2] == s[i])
