@@ -36,6 +36,7 @@ int brute_force(vector<int> &nums)
     return len;
 }
 
+//Optimal:
 int longestSubarray(vector<int> &nums)
 {
     int n = nums.size();
