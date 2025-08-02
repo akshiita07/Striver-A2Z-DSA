@@ -59,6 +59,7 @@ int main()
 {
     vector<int> &basket1 = {};
     vector<int> &basket2 = {};
+    cout<<minCostToMakeBasketsEqual(basket1,basket2);
 
     return 0;
 }
