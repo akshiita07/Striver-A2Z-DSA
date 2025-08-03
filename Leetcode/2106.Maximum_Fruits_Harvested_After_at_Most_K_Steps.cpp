@@ -59,7 +59,7 @@ int main()
     vector<vector<int>> fruits = {{0, 9}, {4, 1}, {5, 7}, {6, 2}, {7, 4}, {10, 9}};
     int startPos = 5;
     int k = 4;
-    cout << "\nmaximum total number of fruits you can harvest= " << maxTotalFruits(fruits, startPos, k);
+    cout << "\nThe maximum total number of fruits you can harvest= " << maxTotalFruits(fruits, startPos, k);
 
     return 0;
 }
