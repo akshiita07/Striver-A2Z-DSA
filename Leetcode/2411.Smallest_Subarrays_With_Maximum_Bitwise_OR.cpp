@@ -4,8 +4,8 @@ using namespace std;
 vector<int> smallestSubarrays(vector<int> &nums)
 {
     int n = nums.size();
-    vector<int> lastSeen(32, -1);
     vector<int> ans(n);
+    vector<int> lastSeen(32, -1);
 
     for (int i = n - 1; i >= 0; i--)
     {

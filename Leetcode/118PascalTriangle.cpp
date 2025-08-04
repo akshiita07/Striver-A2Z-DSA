@@ -1,7 +1,7 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-// BRUTE:   TIME: O(colms)
+// TIME: O(colms)
 int generate_give_element(int row, int col)
 {
     row -= 1; // 4

@@ -95,7 +95,9 @@
         "xmemory": "cpp",
         "xstddef": "cpp",
         "xtr1common": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -36,10 +36,11 @@ int brute_force(vector<int> &nums)
     return len;
 }
 
+//Optimal:
 int longestSubarray(vector<int> &nums)
 {
     int n = nums.size();
-    // find maxm element as maxm bitwise and would be for this max element
+    // find maxm element as maxm bitwise AND would be for this max element
     int maxEle=*max_element(nums.begin(),nums.end());
     // subarray from nums that has maximum possible bitwise AND.
     // k be the maximum value of the bitwise AND of any subarray of nums
