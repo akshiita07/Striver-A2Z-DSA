@@ -5,7 +5,8 @@ int countSquares(vector<vector<int>> &matrix)
 {
     int m = matrix.size();  //rows
     int n = matrix[0].size();       //columns
-    int noOfSqOnes = 0;     //ans
+    //ans
+    int noOfSqOnes = 0;     
 
     // Iterate through the matrix
     for (int i = 0; i < m; i++)
