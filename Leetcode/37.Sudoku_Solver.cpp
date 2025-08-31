@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Check if sudoku is valid after adding num instead of .
 bool isValid(vector<vector<char>> &board, int row, int clm, char num)
 {
     for (int i = 0; i < 9; i++)
