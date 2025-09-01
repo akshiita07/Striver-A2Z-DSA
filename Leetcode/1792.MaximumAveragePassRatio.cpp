@@ -18,7 +18,7 @@ double maxAverageRatio(vector<vector<int>> &classes, int extraStudents)
     // avg pass ratio= sum of pass ratio of ALL classes/total no of classes
     // Return the maximum possible average pass ratio
 
-    // take priority queue that will store classes in order of adding extra stduent & change in ratio:
+    // take priority queue that will store classes in order of adding extra student & change in ratio:
     priority_queue<pair<double, pair<int, int>>> maxHeap;
 
     // add all classes to pq:
