@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool containsZero(int n){
+        while(n>0){
+            if(n%10==0){
+                return true;
+            }
+            n=n/10;
+        }
+        return false;
+    }
+    vector<int> getNoZeroIntegers(int n) {
+        vector<int> ans;
+        // find 2 numbers that dont have 0 in them but add to give n:
+        for (int i = 1; i < n; i++) {
+            int j = n - i;
+            if (!containsZero(i) && !containsZero(j) && i + j == n) {
+                ans.push_back(i);
+                ans.push_back(j);
+                break;
+            }
+        }
+        return ans;
+    }
+};
