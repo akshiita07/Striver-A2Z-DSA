@@ -49,7 +49,8 @@ public:
         string right = formula.substr(plusPosition + 1);
 
         // find values of left and right operands:
-        int leftVal, rightVal;
+        int leftVal = 0;
+        int rightVal = 0;
         if (isdigit(left[0]))
         {
             // return integer form of string
