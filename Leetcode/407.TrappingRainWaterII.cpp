@@ -18,7 +18,7 @@ int trapRainWater(vector<vector<int>> &heightMap)
     vector<vector<bool>> visited(m, vector<bool>(n, false));
     int directions[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-    // Add all boundary cells to the priority queue
+    // Add all boundary cells to the priority queue:
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
