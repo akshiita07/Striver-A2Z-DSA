@@ -32,13 +32,13 @@ public:
             if (arrayNums.find(temp->val) != arrayNums.end()) {
                 // delete this node
                 prev->next = temp->next;
-                delete temp;
+                temp = prev->next;
             } else {
                 // move prev to temp
                 prev = temp;
+                // move temp to next of prev always
+                temp = temp->next;
             }
-            // move temp to next of prev always
-            temp = prev->next;
         }
 
         head = dummy->next;
