@@ -1,0 +1,82 @@
+class DSU {
+public:
+    vector<int> parent, size;
+    DSU(int n) {
+        parent.resize(n + 1);
+        size.resize(n + 1, 1);
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int find(int x) {
+        if (x == parent[x]) {
+            return x;
+        }
+        return parent[x] = find(parent[x]);
+    }
+    void unite(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if (a == b) {
+            return;
+        }
+        if (size[a] < size[b]) {
+            swap(a, b);
+        }
+        parent[b] = a;
+        size[a] += size[b];
+    }
+};
+
+class Solution {
+public:
+    vector<int> processQueries(int c, vector<vector<int>>& connections,
+                               vector<vector<int>>& queries) {
+        // c power stations from 1 to c
+        // n bidirectional cables-> connections
+        int n = connections.size();
+        // connections[i] = [ui, vi] indicates a connection between station ui &
+        // vi
+        // power grid: sttations directly or indirectly connected
+        // queries[0]=1: maintaince check-> if online then resolve-> if offline
+        // find online station with smallest id in the same power grid
+        // queries[0]=2: station x goes offline
+        vector<int> ans;
+        DSU dsu(c);
+        for (auto& edge : connections) {
+            dsu.unite(edge[0], edge[1]);
+        }
+
+        // store all online stations in a sorted set
+        unordered_map<int, set<int>> compOnline;
+        for (int i = 1; i <= c; i++) {
+            int comp = dsu.find(i);
+            compOnline[comp].insert(i);
+        }
+
+        vector<bool> online(c + 1, true); // all initially online
+
+        // Process queries
+        for (auto& q : queries) {
+            int type = q[0];
+            int x = q[1];
+            int comp = dsu.find(x);
+
+            if (type == 1) {
+                if (online[x])
+                    ans.push_back(x);
+                else {
+                    if (!compOnline[comp].empty())
+                        ans.push_back(*compOnline[comp].begin());
+                    else
+                        ans.push_back(-1);
+                }
+            } else {
+                if (online[x]) {
+                    online[x] = false;
+                    compOnline[comp].erase(x);
+                }
+            }
+        }
+
+        return ans;
+    }
+};
