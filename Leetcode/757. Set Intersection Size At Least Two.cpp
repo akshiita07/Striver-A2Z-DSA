@@ -1,38 +1,30 @@
 class Solution {
 public:
     int intersectionSizeTwo(vector<vector<int>>& intervals) {
-        sort(intervals.begin(), intervals.end(), [](auto& a, auto& b) {
-            return a[1] == b[1] ? a[0] > b[0] : a[1] < b[1];
-        });
+        sort(intervals.begin(), intervals.end(),
+             [](const auto& a, const auto& b) {
+                 if (a[1] != b[1])
+                     return a[1] < b[1];
+                 return a[0] > b[0];
+             });
 
         int res = 0;
-        int a = -1;
-        int b = -1;
+        int s1 = -1e9;
+        int s2 = -1e9; 
 
         for (auto& it : intervals) {
             int l = it[0];
             int r = it[1];
-
-            bool inA = (a >= l && a <= r);
-            bool inB = (b >= l && b <= r);
-
-            if (inA && inB) {
+            if (s1 >= l && s2 >= l) {
                 continue;
-            }
-
-            if (inA || inB) {
-                res++;
-                int newNum = r;
-                if (inA) {
-                    b = a;
-                    a = newNum;
-                } else {
-                    b = newNum;
-                }
-            } else {
+            } else if (s2 < l) {
                 res += 2;
-                a = r - 1;
-                b = r;
+                s1 = r - 1;
+                s2 = r;
+            } else {
+                res += 1;
+                s1 = s2;
+                s2 = r;
             }
         }
         return res;
