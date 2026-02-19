@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int countBinarySubstrings(string s) {
+        // same no of consecutive 0s and 1s
+        int prevGroup = 0;
+        int currGroup = 1;
+        int ans = 0;
+        int n=s.length();
+        //start from 1 and count prev in currGroup
+        for (int i = 1; i < n; i++) {
+            if (s[i] == s[i - 1]) {
+                currGroup++;
+            } else {
+                ans += min(prevGroup, currGroup);
+                prevGroup = currGroup;
+                currGroup = 1;
+            }
+        }
+
+        // last group:
+        ans += min(prevGroup, currGroup);
+
+        return ans;
+    }
+};
