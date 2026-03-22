@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<int>> rotateMatrix(vector<vector<int>>& mat) {
+        // to rotate by 90deg: 1. take transpose 2. reverse rows:
+        int n = mat.size();
+
+        // transpose: rows becomes columns
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                swap(mat[i][j], mat[j][i]);
+            }
+        }
+        // reverse rows:
+        for (int i = 0; i < n; i++) {
+            reverse(mat[i].begin(), mat[i].end());
+        }
+        return mat;
+    }
+    bool findRotation(vector<vector<int>>& mat, vector<vector<int>>& target) {
+        // try rotating 90deg 3 times n verify if equal:
+        for (int i = 0; i < 4; i++) {
+            if (mat == target) {
+                return true;
+            }
+            mat = rotateMatrix(mat);
+        }
+        return false;
+    }
+};
